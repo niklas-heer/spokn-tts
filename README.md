@@ -1,6 +1,10 @@
 # Spokn
 
+> Text-to-speech app with karaoke flair.
+
 A macOS menu bar app for text-to-speech with a karaoke-style overlay.
+
+![Spokn Screenshot](assets/screenshot.png)
 
 ## Features
 
@@ -20,6 +24,14 @@ A macOS menu bar app for text-to-speech with a karaoke-style overlay.
 
 - macOS
 - Accessibility permissions (for global hotkey and clipboard access)
+
+### Premium Voices (Optional)
+
+For better quality voices, download premium voices like "Anna (Premium)" or "Jamie (Premium)" in macOS:
+
+System Settings → Accessibility → Spoken Content → System Voice → Manage Voices
+
+[Apple Support: Change the voice your Mac uses to speak text](https://support.apple.com/guide/mac-help/change-the-voice-your-mac-uses-to-speak-text-mchlp2290/mac)
 
 ## Usage
 
