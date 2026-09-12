@@ -1,0 +1,51 @@
+min_version = "2026.9.5"
+
+[tools]
+swift = "6.3.3"
+
+[settings]
+swift.gpg_verify = true
+
+[tasks.setup]
+description = "Install the pinned Swift toolchain and verify the macOS SDK"
+run = "xcrun --show-sdk-path && swift --version"
+
+[tasks.test]
+description = "Run native unit and UI layout tests"
+run = "swift test"
+
+[tasks.build]
+description = "Build and ad-hoc sign Spokn.app"
+run = "bash scripts/build-native.sh release"
+
+[tasks.dev]
+description = "Build and open the floating app"
+run = "bash scripts/build-native.sh debug && open build/native/Spokn.app"
+
+[tasks.dmg]
+description = "Package a drag-to-install disk image"
+run = "bash scripts/build-dmg.sh"
+
+[tasks.check]
+description = "Test and build the app"
+run = [{ task = "test" }, { task = "build" }]
+
+[tasks.install]
+description = "Install the current native app in Applications, preserving the previous version"
+run = "bash scripts/install-native.sh"
+
+[tasks.test-pocket]
+description = "Download and verify native Pocket TTS voices and word timing in English and German"
+env.SPOKN_VERIFY_POCKET = "1"
+run = "swift test --filter IntegrationTests.real"
+
+[tasks.benchmark-voices]
+description = "Compare the larger German Pocket model against the fast pack, including word timing"
+env.SPOKN_BENCHMARK_HQ = "1"
+env.NSUnbufferedIO = "YES"
+run = "swift test --filter IntegrationTests.benchmarkGermanQuality"
+
+[tasks.review-voices]
+description = "Generate repeated English/German pronunciation samples and recognition diagnostics"
+env.SPOKN_REVIEW_VOICES = "1"
+run = "swift test --filter VoiceReviewTests.generatePronunciationCorpus && swift scripts/render-voice-review.swift"
